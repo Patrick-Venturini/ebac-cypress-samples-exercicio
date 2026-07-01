@@ -1,7 +1,4 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-
-name: Node.js CI
+name: Pipeline - Exercicio EBAC
 
 on:
   push:
@@ -27,3 +24,12 @@ jobs:
 
       - name: Executar testes
         run: npm test
+
+      - name: Gerar relatorio
+        run: npm run report:generate
+
+      - name: Publicar relatório no GH Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./allure-report
